@@ -6,19 +6,31 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Entity
-@Table(name = "customers")
+@Table(name = "vocabulary")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vocabulary {
 	@Id
+	@Column(name="word_id")
 	@GeneratedValue
 	private Integer id;
-	@Column(nullable = false)
-	private String firstName;
-	@Column(nullable = false)
-	private String lastName;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = true, name = "username")
-	private User user;
+	
+	@Column(name="word_type", nullable = false)
+	private String wordType;
+	
+	@Column(name="word_en", nullable = false)
+	private String wordEn;
+	
+	@Column(name="word_kr", nullable = false)
+	private String wordKr;
+	
+	@Column(name="phonetic")
+	private String phonetic;
+	
+	@Column(name="description", nullable = false)
+	private String description;
+	
+	@Column(name="example", nullable = false)
+	private String example;
 }
