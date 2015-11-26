@@ -17,6 +17,7 @@
 		<p>
 		<span sec:authentication="principal.user.username">duke</span>님이 로그인 상태
 		<a th:href="@{/logout}" class="btn btn-default btn-xs">로그아웃</a>
+		<a th:href="@{/voca}" class="btn btn-default btn-xs">영단어</a>
 		</p>
 		<div class="col-sm-12">
 			<form th:action="@{/customers/create}" th:object="${customerForm}"

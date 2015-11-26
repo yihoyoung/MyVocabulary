@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated();
 		http.formLogin().loginProcessingUrl("/login").loginPage("/loginForm")
 				.failureUrl("/loginForm?error")
-				.defaultSuccessUrl("/customers", true)
+				.defaultSuccessUrl("/menu", true)
 				.usernameParameter("username").passwordParameter("password")
 				.and();
 		http.logout()

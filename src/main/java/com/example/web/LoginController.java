@@ -9,4 +9,11 @@ public class LoginController {
 	String loginForm(){
 		return "loginForm";
 	}
+	
+	
+
+	@RequestMapping("menu")
+	String menuForm(){
+		return "menu";
+	}
 }

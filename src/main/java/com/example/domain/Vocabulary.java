@@ -28,9 +28,9 @@ public class Vocabulary {
 	@Column(name="phonetic")
 	private String phonetic;
 	
-	@Column(name="description", nullable = false)
+	@Column(name="description")
 	private String description;
 	
-	@Column(name="example", nullable = false)
+	@Column(name="example")
 	private String example;
 }
