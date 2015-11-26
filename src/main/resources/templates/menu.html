@@ -40,6 +40,20 @@
 		<form class="form-signin" th:action="@{/voca}" method="post">
 			<p>
 				<input type="hidden" class="form-control" name="wordType"
+					required="required" value="I" />
+				<button class="btn btn btn-warning btn-lg" type="submit">IELTS Voca</button>
+			</p>
+		</form>
+		<form class="form-signin" th:action="@{/voca}" method="post">
+			<p>
+				<input type="hidden" class="form-control" name="wordType"
+					required="required" value="T" />
+				<button class="btn btn btn-warning btn-lg" type="submit" style="background-color: #6F5499;">TOEIC Voca</button>
+			</p>
+		</form>
+		<form class="form-signin" th:action="@{/voca}" method="post">
+			<p>
+				<input type="hidden" class="form-control" name="wordType"
 					required="required" value="" />
 				<button class="btn btn-danger btn-lg" type="submit">전 체</button>
 			</p>

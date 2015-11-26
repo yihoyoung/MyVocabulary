@@ -15,15 +15,15 @@ public class fileread {
 		FileWriter fWriter = null;
 		try{
 			fReader = new FileReader("E:\\ddd.csv");
-			fWriter = new FileWriter("E:\\V7__import-iniial-data4.sql");
-			BufferedReader bReader = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\mmm.csv"),"MS949"));
+			fWriter = new FileWriter("E:\\V9__import-iniial-data7.sql");
+			BufferedReader bReader = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\ttt.csv"),"MS949"));
 			///BufferedReader bReader = new BufferedReader(fReader, 1024);
 			BufferedWriter bWriter = new BufferedWriter(fWriter, 1024);
 			String line = "";
 			
 			while((line = bReader.readLine()) != null){
 				String word[] = StringUtils.split(line, ",");
-				String line2 = "insert into vocabulary (word_type, word_en, word_kr) values ('M', '" + word[0] + "', '" + word[1] + "');";
+				String line2 = "insert into vocabulary (word_type, word_en, word_kr) values ('T', '" + word[0] + "', '" +word[1] + "');";
 				System.out.println(line2);
 				bWriter.write(line2);
 				bWriter.newLine();
