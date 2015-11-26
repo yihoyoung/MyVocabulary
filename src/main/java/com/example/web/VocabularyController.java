@@ -31,9 +31,9 @@ public class VocabularyController {
 
 	@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
 	String list(Model model, HttpServletRequest request) {
-		String pageS = request.getParameter("page") == null ? "0" : request.getParameter("page");
-		String requestPage = request.getParameter("rquestpage") == null ? "0" : request.getParameter("rquestpage");
-		String wordType = request.getParameter("wordType") == null ? "" : request.getParameter("wordType");
+		String pageS = StringUtils.isEmpty(request.getParameter("page")) ? "0" : request.getParameter("page");
+		String requestPage = StringUtils.isEmpty(request.getParameter("rquestpage")) ? "0" : request.getParameter("rquestpage");
+		String wordType = StringUtils.isEmpty(request.getParameter("wordType")) ? "" : request.getParameter("wordType");
 		int page = Integer.parseInt(pageS);
 		int nRequestPage = 0;
 		if(StringUtils.isNumeric(requestPage)){
@@ -55,7 +55,7 @@ public class VocabularyController {
 		model.addAttribute("isFirst", vocabularies.isFirst());
 		model.addAttribute("pageNumber", vocabularies.getNumber());
 		model.addAttribute("totalPage", vocabularies.getTotalPages());
-		
+		model.addAttribute("wordType", wordType);
 		return "vocabularies/list";
 	}
 

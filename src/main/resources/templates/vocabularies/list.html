@@ -51,33 +51,44 @@
 					</div>
 				</fieldset>
 			</form>
-			<hr />
-			<ul class="pager">
-				<li class="previous" th:if="${isFirst} == false"><a
-					th:href="'?page=' + (${pageNumber} - 1)">&larr; Previous</a></li>
-				<li><form th:action="@{/voca}" method="post">
-						<input type="text" size="3" name="rquestpage"
-							th:value="${pageNumber+1}"
-							style="padding:0px;border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
+			<table class="table" style="margin-bottom: 0px;">
+				<tr align="center">
+					<td>
+						<form th:action="@{/voca}" method="post">
+						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+							type="hidden" name="page" th:value="${pageNumber- 1} " />
+						<button type="submit" style="float: left;"  class="btn btn-info" th:if="${isFirst} == false">&larr;</button>
+						</form>
+					</td>
+					<td>
+						<form th:action="@{/voca}" method="post">
+						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+							type="text" size="3" name="rquestpage" th:value="${pageNumber+1}"
+							style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
 						<span
 							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
 							/</span> <span
 							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;"
-							th:text="${totalPage}" /><input type="submit" value="Go!" />
-					</form></li>
-				<li class="next" th:if="${isLast} == false"><a
-					th:href="'?page=' + (${pageNumber} + 1)">Next &rarr;</a></li>
-			</ul>
+							th:text="${totalPage}" /> <input type="submit" value="Go!"  class="btn btn-info"/>
+					</form>
+					</td>
+					<td>
+						<form th:action="@{/voca}" method="post">
+						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+							type="hidden" name="page" th:value="${pageNumber+ 1} " />
+						<button type="submit"  style="float: right;" class="btn btn-info" th:if="${isLast} == false">&rarr;</button>
+					</form>
+					</td>
+				</tr>
+			</table>
 			<table class="table table-striped table-borered">
 				<tr>
-					<th>#</th>
 					<th>단어</th>
 					<th>의미</th>
-					<th>dictionary.com 사전</th>
+					<th>dictionary.com</th>
 					<th colspan="2" th:if="${#authentication.name} == 'james'">편집</th>
 				</tr>
 				<tr th:each="vocabulary : ${vocabularies}">
-					<td th:text="${vocabulary.id}">100</td>
 					<td><button type="button" class="btn btn-primary"
 							th:text="${vocabulary.wordEn}">단어</button></td>
 					<td><button type="button" class="btn btn-success"
@@ -102,22 +113,36 @@
 
 				</tr>
 			</table>
-			<ul class="pager">
-				<li class="previous" th:if="${isFirst} == false"><a
-					th:href="'?page=' + (${pageNumber} - 1)">&larr; Previous</a></li>
-				<li><form th:action="@{/voca}" method="post">
-						<input type="text" size="3" name="rquestpage"
-							th:value="${pageNumber+1}"
-							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
+			<table class="table">
+				<tr align="center">
+					<td>
+						<form th:action="@{/voca}" method="post">
+						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+							type="hidden" name="page" th:value="${pageNumber- 1} " />
+						<button type="submit" style="float: left;"  class="btn btn-info">&larr;</button>
+						</form>
+					</td>
+					<td>
+						<form th:action="@{/voca}" method="post">
+						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+							type="text" size="3" name="rquestpage" th:value="${pageNumber+1}"
+							style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
 						<span
 							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
 							/</span> <span
 							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;"
-							th:text="${totalPage}" /><input type="submit" value="Go!" />
-					</form></li>
-				<li class="next" th:if="${isLast} == false"><a
-					th:href="'?page=' + (${pageNumber} + 1)">Next &rarr;</a></li>
-			</ul>
+							th:text="${totalPage}" /> <input type="submit" value="Go!"  class="btn btn-info"/>
+					</form>
+					</td>
+					<td>
+						<form th:action="@{/voca}" method="post">
+						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+							type="hidden" name="page" th:value="${pageNumber+ 1} " />
+						<button type="submit"  style="float: right;" class="btn btn-info">&rarr;</button>
+					</form>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>
