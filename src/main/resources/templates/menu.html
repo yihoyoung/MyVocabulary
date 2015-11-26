@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"
+	charset="UTF-8" />
+<title>Menu</title>
+<link rel="stylesheet" type="text/css"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap-theme.min.css}" />
+</head>
+<body>
+	<div class="container-fluid col-sm-30">
+		<h1>English Vocabulary</h1>
+		<form class="form-signin" th:action="@{/voca}" method="post">
+			<p>
+				<input type="hidden" class="form-control" name="wordType"
+					required="required" value="E" />
+				<button class="btn btn-info btn-lg" type="submit">기초 영단어</button>
+			</p>
+		</form>
+		<form class="form-signin" th:action="@{/voca}" method="post">
+			<p>
+				<input type="hidden" class="form-control" name="wordType"
+					required="required" value="M" />
+				<button class="btn btn-success btn-lg" type="submit">중학교 필수
+					영단어</button>
+			</p>
+		</form>
+		<form class="form-signin" th:action="@{/voca}" method="post">
+			<p>
+				<input type="hidden" class="form-control" name="wordType"
+					required="required" value="H" />
+				<button class="btn btn-primary btn-lg" type="submit">고등학교
+					필수 영단어</button>
+			</p>
+		</form>
+		<form class="form-signin" th:action="@{/voca}" method="post">
+			<p>
+				<input type="hidden" class="form-control" name="wordType"
+					required="required" value="" />
+				<button class="btn btn-danger btn-lg" type="submit">전 체</button>
+			</p>
+		</form>
+	</div>
+</body>
+</html>

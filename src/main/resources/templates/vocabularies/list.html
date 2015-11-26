@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"
+	charset="UTF-8" />
+<title>English Vocabulary</title>
+<link rel="stylesheet" type="text/css"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap-theme.min.css}" />
+</head>
+<body>
+	<div class="container col-sm-12">
+		<p>
+			<a th:href="@{/menu}" class="btn btn-info btn-xs">메뉴</a> <span
+				sec:authentication="principal.user.username">duke</span>님이 로그인 상태 <a
+				th:href="@{/logout}" class="btn btn-default btn-xs">로그아웃</a>
+		</p>
+		<div class="col-sm-12">
+			<form th:action="@{/vaca/create}" th:object="${vocabularyForm}"
+				method="post" th:if="${#authentication.name} == 'james'">
+				<fieldset>
+					<legend>new word 생성</legend>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('wordEn')} ? 'has-error has-feedback'">
+						<label for="wordEn" class="col-sm-2 control-label">단어</label>
+						<div class="col-sm-10">
+							<input type="text" id="wordEn" name="wordEn" th:field="*{wordEn}"
+								th:errorclass="error-input" value="홍" /> <span
+								th:if="${#fields.hasErrors('wordEn')}" th:errors="*{wordEn}"
+								class="error-messages">error!</span>
+						</div>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('wordKr')} ? 'has-error has-feedback'">
+							<label for="wordKr" class="col-sm-2 control-label">의미</label>
+							<div class="col-sm-10">
+								<input type="text" id="wordKr" name="wordKr"
+									th:field="*{wordKr}" th:errorclass="error-input" value="길동" />
+								<span th:if="${#fields.hasErrors('wordKr')}"
+									th:errors="*{wordKr}" class="error-messages">error!</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn primary">작성</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+			<hr />
+			<ul class="pager">
+				<li class="previous" th:if="${isFirst} == false"><a
+					th:href="'?page=' + (${pageNumber} - 1)">&larr; Previous</a></li>
+				<li><form th:action="@{/voca}" method="post">
+						<input type="text" size="3" name="rquestpage"
+							th:value="${pageNumber+1}"
+							style="padding:0px;border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
+						<span
+							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
+							/</span> <span
+							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;"
+							th:text="${totalPage}" /><input type="submit" value="Go!" />
+					</form></li>
+				<li class="next" th:if="${isLast} == false"><a
+					th:href="'?page=' + (${pageNumber} + 1)">Next &rarr;</a></li>
+			</ul>
+			<table class="table table-striped table-borered">
+				<tr>
+					<th>#</th>
+					<th>단어</th>
+					<th>의미</th>
+					<th>dictionary.com 사전</th>
+					<th colspan="2" th:if="${#authentication.name} == 'james'">편집</th>
+				</tr>
+				<tr th:each="vocabulary : ${vocabularies}">
+					<td th:text="${vocabulary.id}">100</td>
+					<td><button type="button" class="btn btn-primary"
+							th:text="${vocabulary.wordEn}">단어</button></td>
+					<td><button type="button" class="btn btn-success"
+							th:text="${vocabulary.wordKr}">의미</button></td>
+					<td><a
+						th:href="@{'http://dictionary.reference.com/browse/' +${vocabulary.wordEn}+'?s=t'}"
+						class="btn btn-info btn-xs">Dictionary</a></td>
+					<td th:if="${#authentication.name} == 'james'">
+						<form th:action="@{/voca/edit}" method="get">
+							<input type="submit" name="form" value="편집" /> <input
+								type="hidden" name="id" th:value="${vocabulary.id}" />
+						</form>
+					</td>
+					<td th:if="${#authentication.name} == 'james'">
+						<form th:action="@{/voca/delete}" method="post">
+							<input type="submit" value="삭제" /> <input type="hidden"
+								name="id" th:value="${vocabulary.id}" />
+						</form>
+					</td>
+				</tr>
+				<tr>
+
+				</tr>
+			</table>
+			<ul class="pager">
+				<li class="previous" th:if="${isFirst} == false"><a
+					th:href="'?page=' + (${pageNumber} - 1)">&larr; Previous</a></li>
+				<li><form th:action="@{/voca}" method="post">
+						<input type="text" size="3" name="rquestpage"
+							th:value="${pageNumber+1}"
+							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
+						<span
+							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
+							/</span> <span
+							style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;"
+							th:text="${totalPage}" /><input type="submit" value="Go!" />
+					</form></li>
+				<li class="next" th:if="${isLast} == false"><a
+					th:href="'?page=' + (${pageNumber} + 1)">Next &rarr;</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
+	th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/3.3.4/js/bootstrap.min.js}"></script>
+</html>
