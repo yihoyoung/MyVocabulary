@@ -5,8 +5,10 @@ import javax.sql.DataSource;
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -15,11 +17,13 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
+@EnableAutoConfiguration
 public class AppConfig {
+	/**
 	@Autowired
 	DataSourceProperties dataSourceProperties;
 	DataSource dataSource;
-
+	*/
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	CharacterEncodingFilter characterEncodingFilter(){
 		CharacterEncodingFilter filter = new CharacterEncodingFilter();
@@ -28,6 +32,7 @@ public class AppConfig {
 		return filter;
 	}
 	
+	/**
 	@Bean
 	DataSource realDataSource() {
 		DataSourceBuilder factory = DataSourceBuilder
@@ -45,4 +50,5 @@ public class AppConfig {
 	DataSource dataSource(){
 		return new Log4jdbcProxyDataSource(this.dataSource);
 	}
+	*/
 }

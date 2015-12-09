@@ -14,6 +14,7 @@
 </head>
 <body>
 	<div class="container col-sm-12">
+		<br/>
 		<p>
 			<a th:href="@{/menu}" class="btn btn-info btn-xs">메뉴</a> <span
 				sec:authentication="principal.user.username">duke</span>님이 로그인 상태 <a
@@ -54,14 +55,14 @@
 			<table class="table" style="margin-bottom: 0px;">
 				<tr align="center">
 					<td>
-						<form th:action="@{/voca}" method="post">
+						<form th:action="@{/voca}" method="get">
 						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
 							type="hidden" name="page" th:value="${pageNumber- 1} " />
 						<button type="submit" style="float: left;"  class="btn btn-info" th:if="${isFirst} == false">&larr;</button>
 						</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="post">
+						<form th:action="@{/voca}" method="get">
 						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
 							type="text" size="3" name="rquestpage" th:value="${pageNumber+1}"
 							style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
@@ -73,7 +74,7 @@
 					</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="post">
+						<form th:action="@{/voca}" method="get">
 						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
 							type="hidden" name="page" th:value="${pageNumber+ 1} " />
 						<button type="submit"  style="float: right;" class="btn btn-info" th:if="${isLast} == false">&rarr;</button>
@@ -103,7 +104,7 @@
 						</form>
 					</td>
 					<td th:if="${#authentication.name} == 'james'">
-						<form th:action="@{/voca/delete}" method="post">
+						<form th:action="@{/voca/delete}" method="get">
 							<input type="submit" value="삭제" /> <input type="hidden"
 								name="id" th:value="${vocabulary.id}" />
 						</form>
@@ -116,14 +117,14 @@
 			<table class="table">
 				<tr align="center">
 					<td>
-						<form th:action="@{/voca}" method="post">
+						<form th:action="@{/voca}" method="get">
 						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
 							type="hidden" name="page" th:value="${pageNumber- 1} " />
 						<button type="submit" style="float: left;"  class="btn btn-info">&larr;</button>
 						</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="post">
+						<form th:action="@{/voca}" method="get">
 						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
 							type="text" size="3" name="rquestpage" th:value="${pageNumber+1}"
 							style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
@@ -135,7 +136,7 @@
 					</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="post">
+						<form th:action="@{/voca}" method="get">
 						<input type="hidden" name="wordType" th:value="${wordType}" /> <input
 							type="hidden" name="page" th:value="${pageNumber+ 1} " />
 						<button type="submit"  style="float: right;" class="btn btn-info">&rarr;</button>
