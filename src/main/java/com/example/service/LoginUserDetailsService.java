@@ -1,9 +1,11 @@
 package com.example.service;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.User;
@@ -23,5 +25,14 @@ public class LoginUserDetailsService implements UserDetailsService{
 		return new LoginUserDetails(user);
 	}
 	
-	
+	public String save(String username, String password){
+		User user = userRepository.findOne(username);
+		if(user == null){
+			User newUser = new User(username, new BCryptPasswordEncoder().encode(password), null, null);
+			userRepository.save(newUser);
+		}else{
+			throw new ServiceException("The user is exist.");
+		}
+		return "registed";
+	}
 }

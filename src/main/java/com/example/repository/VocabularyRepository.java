@@ -12,4 +12,5 @@ import com.example.domain.Vocabulary;
 public interface VocabularyRepository<T, ID extends Serializable> extends JpaRepository<Vocabulary, Integer> {
 	@Query("SELECT x FROM Vocabulary x where x.wordType = ?1")
 	Page<Vocabulary> findVocabularyByWordType(String wordType, Pageable pageable);
+	
 }

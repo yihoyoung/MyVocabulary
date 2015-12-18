@@ -82,16 +82,16 @@
 			<table class="table" style="margin-bottom: 0px;">
 				<tr align="center">
 					<td>
-						<form th:action="@{/voca}" method="get">
-							<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+						<form th:action="@{/voca/myVoca}" method="get">
+							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
 								type="hidden" name="page" th:value="${pageNumber- 1} " />
 							<button type="submit" style="float: left;" class="btn btn-info"
 								th:if="${isFirst} == false">&larr;</button>
 						</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="get">
-							<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+						<form th:action="@{/voca/myVoca}" method="get">
+							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
 								type="text" size="3" name="rquestpage"
 								th:value="${pageNumber+1}"
 								style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
@@ -104,8 +104,8 @@
 						</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="get">
-							<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+						<form th:action="@{/voca/myVoca}" method="get">
+							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
 								type="hidden" name="page" th:value="${pageNumber+ 1} " />
 							<button type="submit" style="float: right;" class="btn btn-info"
 								th:if="${isLast} == false">&rarr;</button>
@@ -125,7 +125,7 @@
 							<button class="btn btn-primary"
 								th:text="${vocabulary.wordEn}" th:onclick="'javascript:sendMyword(\'' + ${vocabulary.id} + '\',  \'' + ${#authentication.name} + '\');'">단어</button>
 							<input type="hidden" name="id" th:value="${vocabulary.id}" /> <input
-								type="hidden" name="wordType" th:value="${wordType}" /> <input
+								type="hidden" name="username" th:value="${#authentication.name}" /> <input
 								type="hidden" name="page" th:value="${pageNumber} " />
 								<input
 								type="hidden" name="username" th:value="${#authentication.name}" />
@@ -142,7 +142,7 @@
 						</form>
 					</td>
 					<td th:if="${#authentication.name} == 'james'">
-						<form th:action="@{/voca/delete}" method="post">
+						<form th:action="@{/voca/delete}" method="get">
 							<input type="submit" value="삭제" /> <input type="hidden"
 								name="id" th:value="${vocabulary.id}" />
 						</form>
@@ -155,15 +155,15 @@
 			<table class="table">
 				<tr align="center">
 					<td>
-						<form th:action="@{/voca}" method="get">
-							<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+						<form th:action="@{/voca/myVoca}" method="get">
+							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
 								type="hidden" name="page" th:value="${pageNumber- 1} " />
 							<button type="submit" style="float: left;" class="btn btn-info">&larr;</button>
 						</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="get">
-							<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+						<form th:action="@{/voca/myVoca}" method="post">
+							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
 								type="text" size="3" name="rquestpage"
 								th:value="${pageNumber+1}"
 								style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
@@ -176,8 +176,8 @@
 						</form>
 					</td>
 					<td>
-						<form th:action="@{/voca}" method="get">
-							<input type="hidden" name="wordType" th:value="${wordType}" /> <input
+						<form th:action="@{/voca/myVoca}" method="get">
+							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
 								type="hidden" name="page" th:value="${pageNumber+ 1} " />
 							<button type="submit" style="float: right;" class="btn btn-info">&rarr;</button>
 						</form>

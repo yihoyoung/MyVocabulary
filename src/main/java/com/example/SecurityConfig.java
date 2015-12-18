@@ -24,14 +24,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/loginForm").permitAll()
-				.anyRequest().authenticated();
-		http.formLogin().loginProcessingUrl("/login").loginPage("/loginForm")
+		http.csrf().disable()
+		    .authorizeRequests().antMatchers("/loginForm","/regist*","/login*").permitAll()
+				.anyRequest().fullyAuthenticated()
+			.and()
+			.formLogin().loginProcessingUrl("/login").loginPage("/loginForm")
 				.failureUrl("/loginForm?error")
 				.defaultSuccessUrl("/menu", true)
 				.usernameParameter("username").passwordParameter("password")
-				.and();
-		http.logout()
+			.and()
+			.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
 				.logoutSuccessUrl("/loginForm");
 	}

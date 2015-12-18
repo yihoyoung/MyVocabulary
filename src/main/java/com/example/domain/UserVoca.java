@@ -13,13 +13,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserVoca {
-	@Id
+	@Id @GeneratedValue
 	private Integer id;
 	
-	@Column(name="username", nullable = false)
-	private String username;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username")
+	private User user;
 	
-	@Column(name="word_id", nullable = false)
-	private Integer wordId;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "word_id")
+	private Vocabulary voca;
 	
+	
+	public static UserVoca saveUserVoca(User user, Vocabulary voca){
+		UserVoca userVoca = new UserVoca();
+		userVoca.setUser(user);
+		userVoca.setVoca(voca);
+		return userVoca;
+	}
 }

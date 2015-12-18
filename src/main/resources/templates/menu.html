@@ -58,6 +58,12 @@
 				<button class="btn btn-danger btn-lg" type="submit">전 체</button>
 			</p>
 		</form>
+		<form class="form-signin" th:action="@{/voca/myVoca}" method="post">
+			<p>
+				<input type="hidden" name="username" th:value="${#authentication.name}" />
+				<button class="btn btn-success btn-lg" type="submit">내 단어장</button>
+			</p>
+		</form>
 	</div>
 </body>
 </html>

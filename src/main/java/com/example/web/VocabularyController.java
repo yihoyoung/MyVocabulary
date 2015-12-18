@@ -1,6 +1,7 @@
 package com.example.web;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -21,13 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.domain.Vocabulary;
 import com.example.service.VocabularyService;
 import com.example.service.LoginUserDetails;
+import com.example.service.UserVocaService;
 
 
 @Controller
 @RequestMapping("voca")
 public class VocabularyController {
+	
 	@Autowired
 	VocabularyService vocabularyService;
+	
+	@Autowired
+	UserVocaService userVocaService;
 
 	@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
 	String list(Model model, HttpServletRequest request) {
@@ -56,6 +62,7 @@ public class VocabularyController {
 		model.addAttribute("pageNumber", vocabularies.getNumber());
 		model.addAttribute("totalPage", vocabularies.getTotalPages());
 		model.addAttribute("wordType", wordType);
+		
 		return "vocabularies/list";
 	}
 
@@ -74,6 +81,7 @@ public class VocabularyController {
 		Vocabulary Vocabulary = new Vocabulary();
 		BeanUtils.copyProperties(form, Vocabulary);
 		vocabularyService.create(Vocabulary);
+		
 
 		return "redirect:/voca";
 	}
@@ -92,10 +100,10 @@ public class VocabularyController {
 			return editForm(id, form);
 		}
 
-		Vocabulary Vocabulary = new Vocabulary();
-		BeanUtils.copyProperties(form, Vocabulary);
-		Vocabulary.setId(id);
-		vocabularyService.update(Vocabulary);
+		Vocabulary vocabulary = new Vocabulary();
+		BeanUtils.copyProperties(form, vocabulary);
+		vocabulary.setId(id);
+		vocabularyService.update(vocabulary);
 		return "redirect:/voca";
 	}
 
@@ -110,4 +118,29 @@ public class VocabularyController {
 		return "redirect:/voca";
 	}
 
+	@RequestMapping(value="myVoca", method = {RequestMethod.GET, RequestMethod.POST})
+	String myList(Model model, HttpServletRequest request) {
+		String pageS = StringUtils.isEmpty(request.getParameter("page")) ? "0" : request.getParameter("page");
+		String requestPage = StringUtils.isEmpty(request.getParameter("rquestpage")) ? "0" : request.getParameter("rquestpage");
+		String username = StringUtils.isEmpty(request.getParameter("username")) ? "" : request.getParameter("username");
+		int page = Integer.parseInt(pageS);
+		int nRequestPage = 0;
+		if(StringUtils.isNumeric(requestPage)){
+			nRequestPage = Integer.parseInt(requestPage);
+		}
+		if(nRequestPage > 0){
+			page = nRequestPage -1;
+		}
+	    Pageable pageable = new PageRequest(page, 20);
+	    
+	    Page<Vocabulary> vocabularies = null;
+	    vocabularies = userVocaService.findByUser(username, pageable);
+		model.addAttribute("vocabularies", vocabularies);
+		model.addAttribute("isLast", vocabularies.isLast());
+		model.addAttribute("isFirst", vocabularies.isFirst());
+		model.addAttribute("pageNumber", vocabularies.getNumber());
+		model.addAttribute("totalPage", vocabularies.getTotalPages());
+		
+		return "vocabularies/mylist";
+	}
 }
