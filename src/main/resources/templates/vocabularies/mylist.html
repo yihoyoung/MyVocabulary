@@ -12,29 +12,37 @@
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"
 	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap-theme.min.css}" />
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
+	type="text/javascript"></script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" type="text/javascript"></script>
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
+	type="text/javascript"></script>
 </head>
 <script type="text/javascript">
-	function sendMyword(word_id, username){
-	
+	function sendMyword(word_id, username, objectId) {
+
 		var form_date = {
-				'id': word_id,
-				'username': username
+			'id' : word_id,
+			'username' : username
 		};
 		$.ajax({
-			url:'/uservoca/create',
-			method:'post',
-			data:JSON.stringify(form_date),
-			dataType:'json',
-			headers : 
-	        {
-	            "Content-Type"  : "application/json",
-	            "Accept" : "application/json"               
-	        },
-			success:function(data){
+			url : '/uservoca/create',
+			method : 'post',
+			data : JSON.stringify(form_date),
+			dataType : 'json',
+			headers : {
+				"Content-Type" : "application/json",
+				"Accept" : "application/json"
+			},
+			success : function(data) {
 				alert(data.message);
+				element = document.getElementById(objectId);
+
+				if (element.className == "btn btn-danger") {
+					element.className = "btn btn-primary";
+				} else {
+					element.className = "btn btn-danger";
+				}
 			}
 		});
 	}
@@ -83,17 +91,18 @@
 				<tr align="center">
 					<td>
 						<form th:action="@{/voca/myVoca}" method="get">
-							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
-								type="hidden" name="page" th:value="${pageNumber- 1} " />
+							<input type="hidden" name="username"
+								th:value="${#authentication.name}" /> <input type="hidden"
+								name="page" th:value="${pageNumber- 1} " />
 							<button type="submit" style="float: left;" class="btn btn-info"
 								th:if="${isFirst} == false">&larr;</button>
 						</form>
 					</td>
 					<td>
 						<form th:action="@{/voca/myVoca}" method="get">
-							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
-								type="text" size="3" name="rquestpage"
-								th:value="${pageNumber+1}"
+							<input type="hidden" name="username"
+								th:value="${#authentication.name}" /> <input type="text"
+								size="3" name="rquestpage" th:value="${pageNumber+1}"
 								style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
 							<span
 								style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
@@ -105,8 +114,9 @@
 					</td>
 					<td>
 						<form th:action="@{/voca/myVoca}" method="get">
-							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
-								type="hidden" name="page" th:value="${pageNumber+ 1} " />
+							<input type="hidden" name="username"
+								th:value="${#authentication.name}" /> <input type="hidden"
+								name="page" th:value="${pageNumber+ 1} " />
 							<button type="submit" style="float: right;" class="btn btn-info"
 								th:if="${isLast} == false">&rarr;</button>
 						</form>
@@ -122,14 +132,15 @@
 				</tr>
 				<tr th:each="vocabulary : ${vocabularies}">
 					<td>
-							<button class="btn btn-primary"
-								th:text="${vocabulary.wordEn}" th:onclick="'javascript:sendMyword(\'' + ${vocabulary.id} + '\',  \'' + ${#authentication.name} + '\');'">단어</button>
-							<input type="hidden" name="id" th:value="${vocabulary.id}" /> <input
-								type="hidden" name="username" th:value="${#authentication.name}" /> <input
-								type="hidden" name="page" th:value="${pageNumber} " />
-								<input
-								type="hidden" name="username" th:value="${#authentication.name}" />
-						</td>
+						<button class="btn btn-primary"
+							th:id="'button_' + ${vocabulary.id}"
+							th:text="${vocabulary.wordEn}"
+							th:onclick="'javascript:sendMyword(\'' + ${vocabulary.id} + '\',  \'' + ${#authentication.name} + '\', \'' + 'button_' + ${vocabulary.id} + '\');'">단어</button>
+						<input type="hidden" name="id" th:value="${vocabulary.id}" /> <input
+						type="hidden" name="username" th:value="${#authentication.name}" />
+						<input type="hidden" name="page" th:value="${pageNumber} " /> <input
+						type="hidden" name="username" th:value="${#authentication.name}" />
+					</td>
 					<td><button type="button" class="btn btn-success"
 							th:text="${vocabulary.wordKr}">의미</button></td>
 					<td><a
@@ -156,16 +167,18 @@
 				<tr align="center">
 					<td>
 						<form th:action="@{/voca/myVoca}" method="get">
-							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
-								type="hidden" name="page" th:value="${pageNumber- 1} " />
-							<button type="submit" style="float: left;" class="btn btn-info">&larr;</button>
+							<input type="hidden" name="username"
+								th:value="${#authentication.name}" /> <input type="hidden"
+								name="page" th:value="${pageNumber- 1} " />
+							<button type="submit" style="float: left;"
+								th:if="${isFirst} == false" class="btn btn-info">&larr;</button>
 						</form>
 					</td>
 					<td>
 						<form th:action="@{/voca/myVoca}" method="post">
-							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
-								type="text" size="3" name="rquestpage"
-								th:value="${pageNumber+1}"
+							<input type="hidden" name="username"
+								th:value="${#authentication.name}" /> <input type="text"
+								size="3" name="rquestpage" th:value="${pageNumber+1}"
 								style="padding: 0px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;" />
 							<span
 								style="border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
@@ -177,9 +190,11 @@
 					</td>
 					<td>
 						<form th:action="@{/voca/myVoca}" method="get">
-							<input type="hidden" name="username" th:value="${#authentication.name}" /> <input
-								type="hidden" name="page" th:value="${pageNumber+ 1} " />
-							<button type="submit" style="float: right;" class="btn btn-info">&rarr;</button>
+							<input type="hidden" name="username"
+								th:value="${#authentication.name}" /> <input type="hidden"
+								name="page" th:value="${pageNumber+ 1} " />
+							<button type="submit" style="float: right;"
+								th:if="${isLast} == false" class="btn btn-info">&rarr;</button>
 						</form>
 					</td>
 				</tr>

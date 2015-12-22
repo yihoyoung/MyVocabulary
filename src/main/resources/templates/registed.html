@@ -14,14 +14,18 @@
 <body>
 	<div class="container-fluid col-sm-12">
 		<h1>English Vocabulary</h1>
-
+		<form class="form-signin" th:action="@{/loginForm}" method="post">
+			<p>
+				<button class="btn btn-info btn-lg" type="submit">로그인</button>
+			</p>
+		</form>
 		<form class="form-signin" th:action="@{/login}" method="post">
 			<h2 class="form-signin-heading">아이디 생성이 완료 되었습니다. 생성 된 아이디로 로그인 하세요.</h2>
 			<div th:if="${param.error}" class="alert alert-danger">중복된 아이디나 잘못된 암호
 				입니다.</div>
 			<input type="text" class="form-control" name="username"
 				placeholder="Username" required="required" autofocus="autofocus" value=""/>
-			<input type="text" class="form-control" name="password"
+			<input type="password" class="form-control" name="password"
 				placeholder="Password" required="required" autofocus="autofocus" value=""/>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
 	</form>

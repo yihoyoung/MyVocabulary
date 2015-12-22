@@ -39,10 +39,10 @@ public class UserVocabularyController {
 		Vocabulary userVoca = userVocaService.findByWordId(username, wordId);
 		if(userVoca == null){
 			userVocaService.create(username, wordId);
-			message.setMessage("내 보카 추가.");
+			message.setMessage("단어장에 추가 되었습니다.");
 		}else{
 			userVocaService.delete(username,userVoca);
-			message.setMessage("내 보카에서 삭제.");
+			message.setMessage("단어장에서 삭제 되었습니다.");
 		}
 		return message;
 	}
