@@ -25,26 +25,32 @@ public class VocabularyService {
 	@Autowired
 	UserRepository userRepository;
 
+	@SuppressWarnings("unchecked")
 	public Page<Vocabulary> findAll(Pageable pageable) {
 		return vocabularyRepository.findAll(pageable);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vocabulary findOne(Integer id) {
 		return (Vocabulary) vocabularyRepository.findOne(id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vocabulary create(Vocabulary vocabulary) {
 		return (Vocabulary) vocabularyRepository.save(vocabulary);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vocabulary update(Vocabulary vocabulary) {
 		return (Vocabulary) vocabularyRepository.save(vocabulary);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void delete(Integer id) {
 		vocabularyRepository.delete(id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Page<ViewOfVoca> findAll(String userName, Pageable pageable) {
 		User user = userRepository.findOne(userName);
 		List<Vocabulary> myVocas = user.getVocas();
@@ -74,6 +80,7 @@ public class VocabularyService {
 		return pVoca;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Page<ViewOfVoca> findByWordType(String wordType, String userName, Pageable pageable) {
 		User user = userRepository.findOne(userName);
 		List<Vocabulary> myVocas = user.getVocas();
