@@ -3,7 +3,7 @@ target/
 .ssh/
 .project
 .classpath
-.setting/
+.settings/
 .mvn/
 mvnw
 mvnw.cmd
