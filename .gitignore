@@ -1,4 +1,9 @@
 *.class
 target/
 .ssh/
-
+.project
+.classpath
+.setting/
+.mvn/
+mvnw
+mvnw.cmd
