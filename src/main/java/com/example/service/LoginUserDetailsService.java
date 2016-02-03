@@ -25,14 +25,15 @@ public class LoginUserDetailsService implements UserDetailsService{
 		return new LoginUserDetails(user);
 	}
 	
-	public String save(String username, String password){
+	public User save(String username, String password){
+		User newUser = null;
 		User user = userRepository.findOne(username);
 		if(user == null){
-			User newUser = new User(username, new BCryptPasswordEncoder().encode(password), null, null);
-			userRepository.save(newUser);
+			newUser = new User(username, new BCryptPasswordEncoder().encode(password), null, null);
+			newUser = userRepository.save(newUser);
 		}else{
 			throw new ServiceException("The user is exist.");
 		}
-		return "registed";
+		return newUser;
 	}
 }
